@@ -1,0 +1,74 @@
+---
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: GTiles API
+  description: |
+    The GTiles API is a thin proxy for the new Google Maps Tiles API, handling
+    session management and authorization.
+
+    ## Authorization
+
+    This API is only available for certain referrers. Make sure the correct
+    referrer header is set in your request, and that's enough to be authorized
+
+paths:
+  /v1/tilesets/:
+    get:
+      summary: |
+        Supported tilesets
+      description: |
+        Obtains a list of all the supported tilesets for which individual tiles
+        may be requested in this API.
+      responses:
+        "403":
+          description: |
+            The referrer of the request does not belong to one of the supported
+            referrers.
+        "200":
+          description: |
+            Expected response to a successful request.
+
+  /v1/tileset/{tileset}/tile:
+    get:
+      summary: |
+        Obtains a tile
+      description: |
+        Obtains a Google Maps Tile for a given tileset.
+      parameters:
+        - name: tileset
+          in: path
+          description: |
+            Name of the tileset to request tiles from. Check the list of
+            possible values with the `/v1/tilesets` endpoint.
+          required: true
+          type: string
+        - name: x
+          in: query
+          description: |
+            x coordinate for the tile
+          required: true
+          type: integer
+        - name: y
+          in: query
+          description: |
+            y coordinate for the tile
+          required: true
+          type: integer
+        - name: z
+          in: query
+          description: |
+            z coordinate for the tile
+          required: true
+          type: integer
+      responses:
+        "403":
+          description: |
+            The referrer of the request does not belong to one of the supported
+            referrers.
+        "422":
+          description: |
+            Any of the parameters is invalid.
+        "200":
+          description: |
+            Expected response to a successful request.

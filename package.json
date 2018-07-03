@@ -1,0 +1,39 @@
+{
+  "name": "api-gtiles",
+  "version": "1.0.0",
+  "description": "Google Map Tiles proxy",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GlobalFishingWatch/api-gtiles.git"
+  },
+  "author": "Global Fishing Watch",
+  "bugs": {
+    "url": "https://github.com/GlobalFishingWatch/api-gtiles/issues"
+  },
+  "homepage": "https://github.com/GlobalFishingWatch/api-gtiles#readme",
+  "engines": {
+    "node": "~8.11"
+  },
+  "main": "src/index.js",
+  "scripts": {
+    "start": "per-env",
+    "start:production": "node src/index.js",
+    "start:development": "nodemon --inspect -e json,js,yaml src/index.js",
+    "sessions": "node src/scripts/sessions"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cors": "^2.7.1",
+    "express": "^4.13.4",
+    "express-winston": "^1.4.2",
+    "fs-extra": "^1.0.0",
+    "lodash": "^4.17.2",
+    "nodemon": "^1.9.2",
+    "per-env": "^1.0.2",
+    "request": "^2.87.0",
+    "swagger-tools": "^0.10.3",
+    "winston": "^2.2.0",
+    "yamljs": "^0.2.9"
+  }
+}

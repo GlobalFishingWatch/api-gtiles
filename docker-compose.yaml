@@ -1,0 +1,16 @@
+version: '2'
+services:
+  dev:
+    image: gfw/api-gtiles
+    build: .
+    command: npm start
+    volumes:
+      - "./src:/opt/project/src"
+      - "./package.json:/opt/project/package.json"
+      - "./dev:/opt/project/dev"
+    ports:
+      - "8080:8080"
+    env_file: ./dev/env
+    environment:
+      - NODE_ENV=development
+
