@@ -14,8 +14,8 @@ module.exports = (app) => {
     }
 
     const z = req.swagger.params.z.value;
-    const x = req.swagger.params.z.value;
-    const y = req.swagger.params.z.value;
+    const x = req.swagger.params.x.value;
+    const y = req.swagger.params.y.value;
     const session = encodeURIComponent(tileset.session);
     const apiKey = encodeURIComponent(config.google.maps.apiKey);
 
