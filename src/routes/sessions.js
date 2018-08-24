@@ -2,6 +2,7 @@ const tilesets = require('../data/tilesets');
 const sessions = require("../data/sessions");
 const config = require("../config");
 const request = require("request");
+const log = require('../data/log').instance;
 
 const requestToPromise = (options) => new Promise((resolve, reject) => {
   request(options, (error, response, body) => {
@@ -25,13 +26,18 @@ const createSession = async (styles) => {
     body: styles,
   };
 
+  log.debug("Creating session through google maps API");
   const { body } = await requestToPromise(options);
+  log.debug("Session created: ", body);
   return body.session;
 }
 
 const refreshSession = async (tileset) => {
+  log.debug("Refreshing session for tileset ", tileset.id);
   const newSession = await createSession(tileset.styles);
+  log.debug("New session created: ", newSession);
   const saveResult = await sessions.save(tileset.id, newSession)
+  log.debug("Session tokens saved: ", saveResult);
 
   return saveResult;
 }

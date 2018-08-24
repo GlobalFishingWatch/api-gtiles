@@ -3,13 +3,21 @@ const sessions = require("../data/sessions");
 const authorization = require('..//middleware/authorization');
 const config = require('../config');
 const request = require('request');
+const log = require("../data/log").instance;
 
 module.exports = (app) => {
   app.get("/v1/tileset/:tileset/tile", authorization.validateReferrer(), async (req, res, next) => {
     try {
       const tilesetId = req.swagger.params.tileset.value;
+      if (!tilesets[tilesetId]) {
+        log.warn("Invalid tilese ", tilesetId);
+        return res.status(422).send("Bad Request: Invalid tileset");
+      }
+
+      log.debug("Obtaining session information for tileset ", tilesetId);
       const rawSession = await sessions.get(tilesetId);
 
+      log.debug("Session information available, forwarding to google apis");
       const z = req.swagger.params.z.value;
       const x = req.swagger.params.x.value;
       const y = req.swagger.params.y.value;
