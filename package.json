@@ -28,6 +28,7 @@
     "express": "^4.13.4",
     "express-winston": "^1.4.2",
     "fs-extra": "^1.0.0",
+    "@google-cloud/datastore": "^1.4.2",
     "lodash": "^4.17.2",
     "nodemon": "^1.9.2",
     "per-env": "^1.0.2",

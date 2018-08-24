@@ -1,5 +1,27 @@
 const environment = process.env.NODE_ENV || 'development';
 
+const errorMessage = (key, doc) => (
+  `You need to configure the environment variable ${key}. ${doc}`
+);
+
+const entry = (options) => {
+  let value = process.env[options.key];
+
+  if (value === undefined && options.defaults) {
+    value = options.defaults[environment];
+  }
+
+  if (value === undefined && options.defaults) {
+    value = options.defaults.all;
+  }
+
+  if (value === undefined && options.required) {
+    throw errorMessage(options.key, options.doc);
+  }
+
+  return value;
+};
+
 module.exports = {
   environment: environment,
 
@@ -11,6 +33,14 @@ module.exports = {
         required: true,
       }),
     },
+  },
+
+  datastore: {
+    namespace: entry({
+      key: 'DATASTORE_NAMESPACE',
+      doc: 'Namespace to scope all datastore operations to. On development this should be set to something unique to the user, such as "andres--gtiles-api"',
+      required: true,
+    }),
   },
 
   server: {
@@ -44,27 +74,22 @@ module.exports = {
       required: true,
     }),
   },
+
+  gcloud: {
+    datastore: {
+      projectId: entry({
+        key: 'GCLOUD_PROJECTID_DATASTORE',
+        doc: 'Google cloud platform project id for the datastore services.',
+        defaults: {development: 'world-fishing-827', },
+        required: true,
+      }),
+
+      keyFilename: entry({
+        key: 'GCLOUD_KEY_FILENAME',
+        doc: 'Location of the json key file for authorizing with the datastore services',
+        defaults: {development: '/opt/project/dev/key.json'},
+        required: false,
+      }),
+    },
+  },
 };
-
-function errorMessage(key, doc) {
-  return `You need to configure the environment variable ${key}. ${doc}`;
-}
-
-function entry(options) {
-  let value = process.env[options.key];
-
-  if (value === undefined && options.defaults) {
-    value = options.defaults[environment];
-  }
-
-  if (value === undefined && options.defaults) {
-    value = options.defaults.all;
-  }
-
-  if (value === undefined && options.required) {
-    throw errorMessage(options.key, options.doc);
-  }
-
-  return value;
-}
-
