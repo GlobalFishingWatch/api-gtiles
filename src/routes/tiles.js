@@ -1,35 +1,44 @@
 const tilesets = require('../data/tilesets');
+const sessions = require("../data/sessions");
 const authorization = require('..//middleware/authorization');
 const config = require('../config');
 const request = require('request');
+const log = require("../data/log").instance;
 
 module.exports = (app) => {
-  app.get("/v1/tileset/:tileset/tile", authorization.validateReferrer(), (req, res) => {
-    const tilesetId = req.swagger.params.tileset.value;
-    const tileset = tilesets[tilesetId];
+  app.get("/v1/tileset/:tileset/tile", authorization.validateReferrer(), async (req, res, next) => {
+    try {
+      const tilesetId = req.swagger.params.tileset.value;
+      if (!tilesets[tilesetId]) {
+        log.warn("Invalid tilese ", tilesetId);
+        return res.status(422).send("Bad Request: Invalid tileset");
+      }
 
-    if (!tileset) {
-      res.sendStatus(422);
-      return;
+      log.debug("Obtaining session information for tileset ", tilesetId);
+      const rawSession = await sessions.get(tilesetId);
+
+      log.debug("Session information available, forwarding to google apis");
+      const z = req.swagger.params.z.value;
+      const x = req.swagger.params.x.value;
+      const y = req.swagger.params.y.value;
+      const session = encodeURIComponent(rawSession.token);
+      const apiKey = encodeURIComponent(config.google.maps.apiKey);
+
+      const uri = `https://www.googleapis.com/tile/v1/tiles/${z}/${x}/${y}/?key=${apiKey}&session=${session}`
+
+      const options = {
+        uri: uri,
+        method: 'GET',
+        headers: {
+          'Content-Type': 'image/jpg',
+          'Referer': 'https://gtiles.globalfishingwatch.org',
+        },
+      };
+
+      request(options).pipe(res);
+
+    } catch (error) {
+      next(error);
     }
-
-    const z = req.swagger.params.z.value;
-    const x = req.swagger.params.x.value;
-    const y = req.swagger.params.y.value;
-    const session = encodeURIComponent(tileset.session);
-    const apiKey = encodeURIComponent(config.google.maps.apiKey);
-
-    const uri = `https://www.googleapis.com/tile/v1/tiles/${z}/${x}/${y}/?key=${apiKey}&session=${session}`
-
-    const options = {
-      uri: uri,
-      method: 'GET',
-      headers: {
-        'Content-Type': 'image/jpg',
-        'Referer': 'https://gtiles.globalfishingwatch.org',
-      },
-    };
-
-    request(options).pipe(res);
   });
 };
