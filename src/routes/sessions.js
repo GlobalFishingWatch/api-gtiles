@@ -20,7 +20,6 @@ const createSession = async (styles) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Referer': 'https://gtiles.globalfishingwatch.org',
     },
     json: true,
     body: styles,
