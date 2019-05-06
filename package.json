@@ -20,21 +20,29 @@
     "start": "per-env",
     "start:production": "node src/index.js",
     "start:development": "nodemon --inspect -e json,js,yaml src/index.js",
-    "sessions": "node src/scripts/sessions"
+    "sessions": "node src/scripts/sessions",
+    "test": "eslint src"
   },
   "dependencies": {
     "body-parser": "^1.15.2",
     "cors": "^2.7.1",
     "express": "^4.13.4",
-    "express-winston": "^1.4.2",
-    "fs-extra": "^1.0.0",
-    "@google-cloud/datastore": "^1.4.2",
+    "express-winston": "^3.0.1",
+    "@google-cloud/datastore": "^3.1.0",
     "lodash": "^4.17.2",
     "nodemon": "^1.9.2",
     "per-env": "^1.0.2",
     "request": "^2.87.0",
     "swagger-tools": "^0.10.3",
-    "winston": "^2.2.0",
-    "yamljs": "^0.2.9"
+    "winston": "^3.0.0",
+    "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^4.2.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-prettier": "^3.0.1",
+    "prettier": "^1.17.0"
   }
 }

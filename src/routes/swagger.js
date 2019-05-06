@@ -1,8 +1,7 @@
-const swagger = require('../middleware/swagger');
+const api = require("../api");
 
-module.exports = (app) => {
-  app.get('/api', (req, res) => {
-    res.json(swagger.spec);
+module.exports = app => {
+  app.get("/api", (req, res) => {
+    res.json(api);
   });
 };
-

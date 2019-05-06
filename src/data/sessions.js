@@ -1,6 +1,6 @@
 const datastore = require("../services/google/datastore");
 
-const buildKey = (id) => datastore.key(["Session", id]);
+const buildKey = id => datastore.key(["Session", id]);
 
 module.exports = {
   save(id, token) {
@@ -8,19 +8,19 @@ module.exports = {
     const data = [
       {
         name: "id",
-        value: id,
+        value: id
       },
       {
         name: "token",
         value: token,
-        excludeFromIndexes: true,
-      },
+        excludeFromIndexes: true
+      }
     ];
     return datastore.save({ key, data });
   },
 
   get(id) {
     const key = buildKey(id);
-    return datastore.get(key).then((data) => data[0]);
-  },
-}
+    return datastore.get(key).then(data => data[0]);
+  }
+};
