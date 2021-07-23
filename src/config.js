@@ -34,6 +34,21 @@ module.exports = {
     }
   },
 
+  redis: {
+    connectionString: entry({
+      key: "REDIS_CONNECTION_STRING",
+      doc: "Connection string to the redis server",
+      required: true
+    }),
+
+    namespace: entry({
+      key: "REDIS_NAMESPACE",
+      doc: "Prefix for redis keys to namespace entries",
+      defaults: { development: "api-gtiles" },
+      required: true
+    })
+  },
+
   server: {
     host: entry({
       key: "SERVER_HOST",
@@ -66,30 +81,4 @@ module.exports = {
       required: true
     })
   },
-
-  gcloud: {
-    datastore: {
-      projectId: entry({
-        key: "GCLOUD_PROJECTID_DATASTORE",
-        doc: "Google cloud platform project id for the datastore services.",
-        defaults: { development: "world-fishing-827" },
-        required: true
-      }),
-
-      keyFilename: entry({
-        key: "GCLOUD_KEY_FILENAME",
-        doc:
-          "Location of the json key file for authorizing with the datastore services",
-        defaults: { development: "/opt/project/dev/key.json" },
-        required: false
-      }),
-
-      namespace: entry({
-        key: "GCLOUD_DATASTORE_NAMESPACE",
-        doc:
-          'Namespace to scope all datastore operations to. On development this should be set to something unique to the user, such as "andres--events-api"',
-        required: true
-      })
-    }
-  }
 };
