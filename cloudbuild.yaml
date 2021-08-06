@@ -1,0 +1,54 @@
+steps:
+  # Run tests
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "--target",
+        "development",
+        "-t",
+        "gfw/api-gtiles:development",
+        ".",
+      ]
+
+  # Push production image to GCR
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "--target",
+        "production",
+        "-t",
+        "gcr.io/world-fishing-827/github.com/globalfishingwatch/api-gtiles:$COMMIT_SHA",
+        ".",
+      ]
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "push",
+        "gcr.io/world-fishing-827/github.com/globalfishingwatch/api-gtiles:$COMMIT_SHA",
+      ]
+
+  # Deploy to the appropriate environment
+  - name: "gcr.io/cloud-builders/gcloud"
+    args:
+      [
+        "run",
+        "deploy",
+        "$_RUN_SERVICE_NAME",
+        "--project",
+        "$_RUN_PROJECT",
+        "--image",
+        "gcr.io/world-fishing-827/github.com/globalfishingwatch/api-gtiles:$COMMIT_SHA",
+        "--region",
+        "$_RUN_REGION",
+        "--platform",
+        "managed",
+        "--set-env-vars",
+        "NODE_ENV=$_NODE_ENV,LOG_LEVEL=$_LOG_LEVEL,GOOGLE_MAPS_API_KEY=$_GOOGLE_MAPS_API_KEY,REDIS_CONNECTION_STRING=$_REDIS_CONNECTION_STRING,REDIS_NAMESPACE=$_REDIS_NAMESPACE,"
+
+      ]
+
+images:
+  - "gcr.io/world-fishing-827/github.com/globalfishingwatch/api-gtiles:$COMMIT_SHA"
+

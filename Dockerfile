@@ -25,5 +25,7 @@ RUN npm --unsafe-perm install --only development
 ################################################################################
 # Productive environment
 ################################################################################
+FROM dependencies AS production
+
 # Setup the application code
 COPY src /opt/project/src
