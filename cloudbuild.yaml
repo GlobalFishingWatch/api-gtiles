@@ -44,6 +44,7 @@ steps:
         "$_RUN_REGION",
         "--platform",
         "managed",
+        "--allow-unauthenticated",
         "--set-env-vars",
         "NODE_ENV=$_NODE_ENV,LOG_LEVEL=$_LOG_LEVEL,GOOGLE_MAPS_API_KEY=$_GOOGLE_MAPS_API_KEY,REDIS_CONNECTION_STRING=$_REDIS_CONNECTION_STRING,REDIS_NAMESPACE=$_REDIS_NAMESPACE,"
 
