@@ -42,7 +42,12 @@ const createSession = async styles => {
 const saveSession = (id, session) => {
   const key = buildKey(id);
   log.debug(`Saving session ${session.session} which will expire at ${session.expiry}`);
-  return redis.set(key, session.session, "EXAT", session.expiry);
+  const currentUnixTimestampInSeconds = Math.floor(Date.now() / 1000);
+  const secondsToExpiration = session.expiry - currentUnixTimestampInSeconds;
+  // We'll expire the key one hour before the session becomes invalid
+  const safeExpirationSeconds = secondsToExpiration - 3600;
+  log.debug(`Session will expire in ${safeExpirationSeconds / 3600 / 24} days`)
+  return redis.set(key, session.session, "EX", safeExpirationSeconds);
 };
 
 const refreshSession = async (tilesetId, tileset) => {
