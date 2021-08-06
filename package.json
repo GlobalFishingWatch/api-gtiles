@@ -30,7 +30,7 @@
     "express-winston": "^3.0.1",
     "ioredis": "^4.27.6",
     "lodash": "^4.17.2",
-    "nodemon": "^1.9.2",
+    "nodemon": "^2.0.12",
     "per-env": "^1.0.2",
     "request": "^2.87.0",
     "swagger-tools": "^0.10.3",
