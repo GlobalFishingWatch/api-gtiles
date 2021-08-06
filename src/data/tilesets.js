@@ -47,7 +47,7 @@ module.exports = {
             "color": "#153d7e"
           },
           {
-            "weight": 1.5
+            "weight": 1
           }
         ]
       },
