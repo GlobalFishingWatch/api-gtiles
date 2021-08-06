@@ -70,5 +70,11 @@ module.exports = {
     }
 
     return session;
+  },
+
+  async flush(tilesetId) {
+    const key = buildKey(tilesetId);
+    const result = await redis.del(key);
+    return result;
   }
 };

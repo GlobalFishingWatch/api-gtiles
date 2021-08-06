@@ -24,6 +24,15 @@ const entry = options => {
 module.exports = {
   environment,
 
+  admin: {
+    token: entry({
+      key: "ADMIN_TOKEN",
+      dock: "Simple token to authenticate admin requests to the service",
+      required: true,
+      defaults: { "development": "password" },
+    }),
+  },
+
   google: {
     maps: {
       apiKey: entry({
