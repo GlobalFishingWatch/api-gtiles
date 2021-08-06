@@ -12,19 +12,20 @@ module.exports = app => {
     async (req, res, next) => {
       try {
         const tilesetId = req.swagger.params.tileset.value;
-        if (!tilesets[tilesetId]) {
-          log.warn("Invalid tilese ", tilesetId);
+        const tileset = tilesets[tilesetId];
+        if (!tileset) {
+          log.warn("Invalid tileset", tilesetId);
           return res.status(422).send("Bad Request: Invalid tileset");
         }
 
         log.debug("Obtaining session information for tileset ", tilesetId);
-        const rawSession = await sessions.get(tilesetId);
+        const token = await sessions.get(tilesetId, tileset);
 
         log.debug("Session information available, forwarding to google apis");
         const z = req.swagger.params.z.value;
         const x = req.swagger.params.x.value;
         const y = req.swagger.params.y.value;
-        const session = encodeURIComponent(rawSession.token);
+        const session = encodeURIComponent(token);
         const apiKey = encodeURIComponent(config.google.maps.apiKey);
 
         const uri = `https://www.googleapis.com/tile/v1/tiles/${z}/${x}/${y}/?key=${apiKey}&session=${session}`;
