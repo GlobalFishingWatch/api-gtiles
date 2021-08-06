@@ -27,7 +27,7 @@ module.exports = {
   admin: {
     token: entry({
       key: "ADMIN_TOKEN",
-      dock: "Simple token to authenticate admin requests to the service",
+      doc: "Simple token to authenticate admin requests to the service",
       required: true,
       defaults: { "development": "password" },
     }),
