@@ -4,7 +4,7 @@ services:
     image: gfw/api-gtiles
     build:
       context: .
-      target: development
+      target: production
     env_file: ./.dev/env
     command: npm start
     volumes:
@@ -16,17 +16,10 @@ services:
     ports:
       - "8080:8080"
       - "9229:9229"
-    environment:
-      - NODE_ENV=development
+    # environment:
+    #   - NODE_ENV=development
 
   redis:
     image: redis
     ports:
       - "6379:6379"
-
-  swagger:
-    image: swaggerapi/swagger-ui
-    ports:
-      - "3000:8080"
-    environment:
-      - URL=http://localhost:8080/api
