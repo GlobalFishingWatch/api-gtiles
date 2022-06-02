@@ -6,10 +6,10 @@ FROM node:16-alpine AS dependencies
 # Setup the project directory
 RUN mkdir -p /opt/project
 WORKDIR /opt/project
-
+CMD ["npm", "start"]
 
 # Setup application dependencies
-copy package*.json /opt/project/
+COPY package*.json /opt/project/
 RUN npm --unsafe-perm install --only production
 
 ################################################################################
