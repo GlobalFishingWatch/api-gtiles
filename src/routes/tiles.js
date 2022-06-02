@@ -5,12 +5,8 @@ const authorization = require("..//middleware/authorization");
 const config = require("../config");
 const log = require("../data/log");
 
-module.exports = app => {
-  app.get(
-    "/v1/tileset/:tileset/tile",
-    authorization.validateReferrer(),
-    async (req, res, next) => {
-      try {
+async function getTile(req, res, next) {
+  try {
         const tilesetId = req.swagger.params.tileset.value;
         const tileset = tilesets[tilesetId];
         if (!tileset) {
@@ -45,6 +41,16 @@ module.exports = app => {
       }
 
       return null;
-    }
+}
+module.exports = app => {
+  app.get(
+    "/v1/tileset/:tileset/tile",
+    authorization.validateReferrer(),
+    getTile
+  );
+  app.get(
+    "/v2/tileset/:tileset/tile",
+    authorization.validateReferrer(),
+    getTile
   );
 };

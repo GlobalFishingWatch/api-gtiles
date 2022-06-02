@@ -1,6 +1,5 @@
 const express = require("express");
 const log = require("./data/log");
-const swagger = require("./middleware/swagger");
 const cors = require("./middleware/cors");
 const logMiddleware = require("./middleware/log");
 const errors = require("./middleware/errors");
@@ -9,13 +8,10 @@ const routes = require("./routes");
 
 const start = async () => {
   try {
-    const swaggerMiddleware = await swagger;
     const app = express();
 
     app.use(logMiddleware.logger());
     app.use(cors.simple());
-    app.use(swaggerMiddleware.swaggerMetadata());
-    app.use(swaggerMiddleware.swaggerValidator());
     routes.forEach(registerRoute => registerRoute(app));
     app.use(logMiddleware.errorLogger());
     app.use(errors.handleErrors());

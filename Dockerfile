@@ -1,14 +1,12 @@
 ################################################################################
 # Base dependencies
 ################################################################################
-FROM gcr.io/google_appengine/nodejs AS dependencies
+FROM node:16-alpine AS dependencies
 
 # Setup the project directory
 RUN mkdir -p /opt/project
 WORKDIR /opt/project
 
-# Setup nodejs
-RUN install_node 10.15.3
 
 # Setup application dependencies
 copy package*.json /opt/project/
