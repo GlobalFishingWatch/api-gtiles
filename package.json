@@ -15,7 +15,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "per-env",
-    "start:production": "node src/index.js",
+    "start:production": "node --max-http-header-size 40000 src/index.js",
     "start:development": "nodemon --inspect -e json,js,yaml src/index.js",
     "sessions": "node src/scripts/sessions",
     "test": "eslint src"
