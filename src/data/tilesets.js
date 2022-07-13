@@ -443,11 +443,11 @@ const tilesets = {
   }
 };
 
-const tilesetsWithLanguages = nsLabelsLanguages.forEach((language) => {
+nsLabelsLanguages.forEach((language) => {
   tilesets[`nslabels_${language}`] = {
     ...tilesets.nslabels,
     language,
   }
 })
 
-module.exports = tilesetsWithLanguages;
+module.exports = tilesets;
