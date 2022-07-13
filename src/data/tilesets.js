@@ -444,10 +444,10 @@ const tilesets = {
 };
 
 const tilesetsWithLanguages = nsLabelsLanguages.forEach((language) => {
-  tilesets.push({
+  tilesets[`nslabels_${language}`] = {
     ...tilesets.nslabels,
     language,
-  })
+  }
 })
 
 module.exports = tilesetsWithLanguages;
