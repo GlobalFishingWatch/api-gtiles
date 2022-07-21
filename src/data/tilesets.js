@@ -1,77 +1,4 @@
-const nsLabelsLanguages = ['en', 'es', 'fr', 'pt', 'id'];
-
-const nsLabelsStyles = [
-  {
-    elementType: 'geometry',
-    stylers: [{ visibility: 'off' }],
-  },
-  {
-    elementType: 'labels.icon',
-    stylers: [{ visibility: 'off' }],
-  },
-  {
-    featureType: 'poi',
-    stylers: [{ visibility: 'off' }],
-  },
-  {
-    featureType: 'road',
-    stylers: [{ visibility: 'off' }],
-  },
-  {
-    featureType: 'transit',
-    stylers: [{ visibility: 'off' }],
-  },
-  {
-    elementType: 'labels.text.fill',
-    stylers: [{ color: '#85bbd5' }],
-  },
-  {
-    elementType: 'labels.text.stroke',
-    stylers: [{ color: '#052555' }],
-  },
-  {
-    featureType: 'administrative.country',
-    elementType: 'labels.text.fill',
-    stylers: [{ color: '#85bbd5' }],
-  },
-  {
-    featureType: 'administrative.country',
-    elementType: 'labels.text.stroke',
-    stylers: [{ color: '#001538' }],
-  },
-  {
-    featureType: 'administrative.locality',
-    elementType: 'labels.text.fill',
-    stylers: [{ color: '#85bbd5' }],
-  },
-  {
-    featureType: 'administrative.locality',
-    elementType: 'labels.text.stroke',
-    stylers: [{ color: '#001538' }],
-  },
-  {
-    featureType: 'administrative.province',
-    elementType: 'labels.text.fill',
-    stylers: [{ color: '#85bbd5' }],
-  },
-  {
-    featureType: 'administrative.province',
-    elementType: 'labels.text.stroke',
-    stylers: [{ color: '#001538' }],
-  },
-  {
-    featureType: 'landscape.natural',
-    elementType: 'labels.text.fill',
-    stylers: [{ color: '#8abbc7' }],
-  },
-  {
-    featureType: 'landscape.natural',
-    elementType: 'labels.text.stroke',
-    stylers: [{ color: '#001538' }],
-  },
-];
-
-const tilesets = {
+module.exports = {
   sat: {
     mapType: 'satellite',
     language: 'en-US',
@@ -108,15 +35,47 @@ const tilesets = {
     scale: 'scaleFactor2x',
     highDpi: true,
     overlay: 'true',
-    styles: nsLabelsStyles,
+    styles: [
+      {
+        elementType: 'geometry',
+        stylers: [{ visibility: 'off' }],
+      },
+      {
+        elementType: 'labels.icon',
+        stylers: [{ visibility: 'off' }],
+      },
+      {
+        featureType: 'poi',
+        stylers: [{ visibility: 'off' }],
+      },
+      {
+        featureType: 'road',
+        stylers: [{ visibility: 'off' }],
+      },
+      {
+        featureType: 'transit',
+        stylers: [{ visibility: 'off' }],
+      },
+      {
+        featureType: 'administrative',
+        elementType: 'labels.text.fill',
+        stylers: [{ color: '#85bbd5' }],
+      },
+      {
+        featureType: 'administrative',
+        elementType: 'labels.text.stroke',
+        stylers: [{ color: '#001538' }],
+      },
+      {
+        featureType: 'landscape.natural',
+        elementType: 'labels.text.fill',
+        stylers: [{ color: '#8abbc7' }],
+      },
+      {
+        featureType: 'landscape.natural',
+        elementType: 'labels.text.stroke',
+        stylers: [{ color: '#001538' }],
+      },
+    ],
   },
 };
-
-nsLabelsLanguages.forEach((language) => {
-  tilesets[`nslabels_${language}`] = {
-    ...tilesets.nslabels,
-    language,
-  };
-});
-
-module.exports = tilesets;
