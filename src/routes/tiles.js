@@ -7,11 +7,14 @@ const log = require('../data/log');
 
 async function getTile(req, res, next) {
   try {
-    const tilesetId = req.params.tileset;
+    const { tileset: tilesetId, locale } = req.params;
     const tileset = tilesets[tilesetId];
     if (!tileset) {
       log.warn('Invalid tileset', tilesetId);
       return res.status(422).send('Bad Request: Invalid tileset');
+    }
+    if (locale) {
+      tileset.language = locale;
     }
 
     log.debug('Obtaining session information for tileset ', tilesetId);
@@ -40,7 +43,7 @@ async function getTile(req, res, next) {
 
   return null;
 }
-module.exports = app => {
+module.exports = (app) => {
   app.get(
     '/v1/tileset/:tileset/tile',
     authorization.validateReferrer(),
