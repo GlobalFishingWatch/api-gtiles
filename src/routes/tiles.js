@@ -7,7 +7,10 @@ const log = require('../data/log');
 
 async function getTile(req, res, next) {
   try {
-    const { tileset: tilesetId, locale } = req.params;
+    let tilesetId = req.params.tileset;
+    const {
+      z, x, y, locale,
+    } = req.query;
     const tileset = tilesets[tilesetId];
     if (!tileset) {
       log.warn('Invalid tileset', tilesetId);
@@ -15,13 +18,13 @@ async function getTile(req, res, next) {
     }
     if (locale) {
       tileset.language = locale;
+      tilesetId = `${tilesetId}_${locale}`;
     }
 
     log.debug('Obtaining session information for tileset ', tilesetId);
     const token = await sessions.get(tilesetId, tileset);
 
     log.debug('Session information available, forwarding to google apis');
-    const { z, x, y } = req.query;
     const session = encodeURIComponent(token);
     const apiKey = encodeURIComponent(config.google.maps.apiKey);
 
