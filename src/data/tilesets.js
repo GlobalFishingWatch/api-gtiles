@@ -57,6 +57,10 @@ module.exports = {
         stylers: [{ visibility: 'off' }],
       },
       {
+        featureType: 'administrative.neighborhood',
+        stylers: [{ visibility: 'off' }],
+      },
+      {
         featureType: 'administrative',
         elementType: 'labels.text.fill',
         stylers: [{ color: '#85bbd5' }],
