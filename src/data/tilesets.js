@@ -37,16 +37,6 @@ module.exports = {
     overlay: 'true',
     styles: [
       {
-        featureType: 'administrative',
-        elementType: 'labels.text.fill',
-        stylers: [{ color: '#85bbd5' }],
-      },
-      {
-        featureType: 'administrative',
-        elementType: 'labels.text.stroke',
-        stylers: [{ color: '#001538' }],
-      },
-      {
         featureType: 'landscape.natural',
         elementType: 'labels.text.fill',
         stylers: [{ color: '#8abbc7' }],
