@@ -86,6 +86,11 @@ module.exports = {
         elementType: 'labels.text.fill',
         stylers: [{ color: '#FF0000' }],
       },
+      {
+        featureType: 'administrative.country',
+        elementType: 'labels.text.fill',
+        stylers: [{ color: '#00FF00' }],
+      },
     ],
   },
 };
