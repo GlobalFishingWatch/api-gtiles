@@ -82,7 +82,7 @@ module.exports = {
         stylers: [{ color: '#FFFF00' }],
       },
       {
-        featureType: 'administrative.neighborhood',
+        featureType: 'administrative.neighbourhood',
         elementType: 'labels.text.fill',
         stylers: [{ color: '#FF0000' }],
       },
