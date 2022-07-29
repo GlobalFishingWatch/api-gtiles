@@ -37,6 +37,26 @@ module.exports = {
     overlay: 'true',
     styles: [
       {
+        featureType: 'administrative',
+        elementType: 'labels.text.fill',
+        stylers: [{ color: '#85bbd5' }],
+      },
+      {
+        featureType: 'administrative',
+        elementType: 'labels.text.stroke',
+        stylers: [{ color: '#001538' }],
+      },
+      {
+        featureType: 'landscape.natural',
+        elementType: 'labels.text.fill',
+        stylers: [{ color: '#8abbc7' }],
+      },
+      {
+        featureType: 'landscape.natural',
+        elementType: 'labels.text.stroke',
+        stylers: [{ color: '#001538' }],
+      },
+      {
         elementType: 'geometry',
         stylers: [{ visibility: 'off' }],
       },
@@ -58,27 +78,8 @@ module.exports = {
       },
       {
         featureType: 'administrative.neighborhood',
-        stylers: [{ visibility: 'off' }],
-      },
-      {
-        featureType: 'administrative',
         elementType: 'labels.text.fill',
-        stylers: [{ color: '#85bbd5' }],
-      },
-      {
-        featureType: 'administrative',
-        elementType: 'labels.text.stroke',
-        stylers: [{ color: '#001538' }],
-      },
-      {
-        featureType: 'landscape.natural',
-        elementType: 'labels.text.fill',
-        stylers: [{ color: '#8abbc7' }],
-      },
-      {
-        featureType: 'landscape.natural',
-        elementType: 'labels.text.stroke',
-        stylers: [{ color: '#001538' }],
+        stylers: [{ color: '#FF0000' }],
       },
     ],
   },
