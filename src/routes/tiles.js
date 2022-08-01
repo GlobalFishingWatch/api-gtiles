@@ -7,18 +7,24 @@ const log = require('../data/log');
 
 async function getTile(req, res, next) {
   try {
-    const tilesetId = req.params.tileset;
+    let tilesetId = req.params.tileset;
+    const {
+      z, x, y, locale,
+    } = req.query;
     const tileset = tilesets[tilesetId];
     if (!tileset) {
       log.warn('Invalid tileset', tilesetId);
       return res.status(422).send('Bad Request: Invalid tileset');
+    }
+    if (locale) {
+      tileset.language = locale;
+      tilesetId = `${tilesetId}_${locale}`;
     }
 
     log.debug('Obtaining session information for tileset ', tilesetId);
     const token = await sessions.get(tilesetId, tileset);
 
     log.debug('Session information available, forwarding to google apis');
-    const { z, x, y } = req.query;
     const session = encodeURIComponent(token);
     const apiKey = encodeURIComponent(config.google.maps.apiKey);
 
@@ -40,7 +46,7 @@ async function getTile(req, res, next) {
 
   return null;
 }
-module.exports = app => {
+module.exports = (app) => {
   app.get(
     '/v1/tileset/:tileset/tile',
     authorization.validateReferrer(),
