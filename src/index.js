@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const log = require('./data/log');
 const logMiddleware = require('./middleware/log');
 const errors = require('./middleware/errors');
@@ -6,6 +7,7 @@ const config = require('./config');
 const routes = require('./routes');
 
 const app = express();
+app.use(cors());
 
 app.use(logMiddleware.logger());
 routes.forEach(registerRoute => registerRoute(app));
