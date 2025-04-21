@@ -28,7 +28,7 @@ module "develop" {
   ]
   set_secrets = [
     "ADMIN_TOKEN=projects/706952489382/secrets/ADMIN_TOKEN/versions/latest",
-    "GOOGLE_MAPS_API_KEY=projects/706952489382/secrets/ADMIN_TOKEN/versions/latest"
+    "GOOGLE_MAPS_API_KEY=projects/706952489382/secrets/GOOGLE_MAPS_API_KEY/versions/latest"
   ]
 }
 
@@ -57,7 +57,7 @@ module "staging" {
   ]
   set_secrets = [
     "ADMIN_TOKEN=projects/706952489382/secrets/ADMIN_TOKEN/versions/latest",
-    "GOOGLE_MAPS_API_KEY=projects/706952489382/secrets/ADMIN_TOKEN/versions/latest"
+    "GOOGLE_MAPS_API_KEY=projects/706952489382/secrets/GOOGLE_MAPS_API_KEY/versions/latest"
   ]
 }
 
@@ -87,6 +87,6 @@ module "production" {
   ]
   set_secrets = [
     "ADMIN_TOKEN=projects/674016975526/secrets/ADMIN_TOKEN/versions/latest",
-    "GOOGLE_MAPS_API_KEY=projects/674016975526/secrets/ADMIN_TOKEN/versions/latest"
+    "GOOGLE_MAPS_API_KEY=projects/674016975526/secrets/GOOGLE_MAPS_API_KEY/versions/latest"
   ]
 }
