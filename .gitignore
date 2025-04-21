@@ -3,3 +3,8 @@ dev/
 *~
 tags
 .dev/
+
+# terraform
+.terraform/
+.terraform*
+.auto.tfvars
