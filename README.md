@@ -1,5 +1,8 @@
 # API GTiles
 
+> **Moved.** This service now lives in the monorepo [GlobalFishingWatch/api-monorepo-node](https://github.com/GlobalFishingWatch/api-monorepo-node) under `apps/api-gtiles`. Development, builds and deploys happen there; this repository is archived and kept for history only.
+
+
 An API microservice which serves as a proxy to the new Google Maps Tiles API.
 
 ## Tech stack
